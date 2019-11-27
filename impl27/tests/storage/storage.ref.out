@@ -1,0 +1,9 @@
+3 3
+('off', 'on', 'off') ('off', 'on', 'off')
+['off', 30] ['off', 30]
+1 1
+None None
+0 0
+1 1
+{'color': ['hp'], 'bw': ['canon', 'epson', 'lg']} {'color': ['hp'], 'bw': ['canon', 'epson', 'lg']}
+1 3

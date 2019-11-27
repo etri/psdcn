@@ -1,0 +1,6 @@
+Given: 100 EncDec: 100
+Given: Hello EncDec: Hello
+Given: 3.14159 EncDec: 3.14159
+Given: (1.414, 2) EncDec: (1.414, 2)
+Given: [1.414, 2] EncDec: [1.414, 2]
+Given: {'grad-years': [1980, 1984, 1986], 'name': ('Gil Dong', 'Hong')} EncDec: {'grad-years': [1980, 1984, 1986], 'name': ('Gil Dong', 'Hong')}

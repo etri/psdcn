@@ -1,0 +1,6 @@
+#!/bin/bash
+python2.7<<EOF
+print "Starting storage server..."
+from storage import start_server
+start_server()
+EOF
