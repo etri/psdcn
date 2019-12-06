@@ -1,5 +1,5 @@
 A Scalable Broker System for Pub/Sub over DCN(Data Centric Networking)
-========================
+========================================================================
     # PSDCN git clone
 
     git clone https://github.com/etri/psdcn.git
@@ -15,8 +15,8 @@ Prerequisites
     sudo apt-get install python-dev python-pip
     pip install gevent
     
-Functional Test
-=============
+Functional Test for Broker
+==========================
 
     # Use impl27/tests directory for functional test under Python2
 
