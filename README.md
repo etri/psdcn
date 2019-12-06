@@ -1,4 +1,4 @@
-A Scalable Broker System for Pub/Sub over DCN(Data Centric Network)
+A Scalable Broker System for Pub/Sub over DCN(Data Centric Networking)
 ========================
     # PSDCN git clone
 
