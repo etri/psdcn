@@ -15,6 +15,12 @@ Prerequisites
     sudo apt-get install python-dev python-pip
     pip install gevent
     
+    # Tested under Ubuntu 18.04.4
+    
+    # Python3 
+    sudo apt-get update -y
+    sudo apt-get install -y python3.6-gevent
+
 Functional Test for Broker
 ==========================
 
@@ -39,16 +45,16 @@ Functional Test for Broker
 
     # broker test
     cd impl36/tests/broker
-    python local.py
+    python3 local.py
 
     # storage test
     cd ../storage
-    python memory.py
-    python protocol.py
+    python3 memory.py
+    python3 protocol.py
  
     # topic test
     cd ../topics
-    python functions.py
-    python perf1.py  (perf1.py ~ perf9.py)
-    python performance.py
+    python3 functions.py
+    python3 perf1.py  (perf1.py ~ perf9.py)
+    python3 performance.py
 
