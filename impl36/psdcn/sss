@@ -1,6 +1,0 @@
-echo "Starting storage server..."
-python3 <<EOF
-# Start Storage Server
-from storage import start_server
-start_server()
-EOF

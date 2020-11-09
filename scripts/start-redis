@@ -1,0 +1,18 @@
+# Run a redis server if not running yet
+
+ROOT=..
+REDIS=$HOME/redis/redis-server
+
+(redis_found=$(ps ax)
+redis_count=$(echo ${redis_found} | grep -c redis-server)
+if test ${redis_count} -eq 0
+then
+    if test -x $REDIS
+    then
+        cd ${ROOT}
+        eval $REDIS & sleep 1
+    else
+        echo "Redis server not found at" $REDIS
+    fi
+fi)
+

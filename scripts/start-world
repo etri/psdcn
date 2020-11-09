@@ -1,0 +1,14 @@
+# Start 3 broker instances
+
+if test $# -eq 1
+then
+    start-redis
+fi
+stop-brokers
+
+(PYTHONPATH=$PYTHONPATH:$(pwd)/.. export PYTHONPATH
+
+for number in 1 2 3
+do
+    start-broker /etri/rn-$number; sleep 1
+done)

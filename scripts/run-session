@@ -1,0 +1,43 @@
+pause Starting brokers /etri/HELLO and /etri/THERE
+start /etri/HELLO /etri/THERE
+
+pause Advertising /data of bundle size 2
+advertise /data 2
+
+pause Publishing 3 data items to /data
+publish /data 1 Data_1
+publish /data 2 Data_2
+publish /data 3 Data_3
+
+pause Checking status of running brokers
+status
+
+pause Subscribe to /data
+subscribe /data
+
+pause Get data manifest of /data@/etri/HELLO
+manifest /etri/HELLO /data
+
+pause Get data items and bundles
+getdata /etri/HELLO /data 3
+getdata /etri/HELLO /data 1
+getbundle /etri/HELLO /data 1
+
+pause Quit /etri/HELLO and /etri/THERE
+stop /etri/HELLO /etri/THERE
+
+pause Restart worlds
+
+start /etri/HELLO /etri/THERE
+status
+
+pause Subscribe to /data again. See if it is still there
+
+subscribe /data
+manifest /etri/HELLO /data
+getdata /etri/HELLO /data 3
+getbundle /etri/HELLO /data 1
+
+pause All done. Thanks
+
+Quit!

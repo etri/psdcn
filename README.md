@@ -1,60 +1,67 @@
-A Scalable Broker System for Pub/Sub over DCN(Data Centric Networking)
-========================================================================
-    # PSDCN git clone
+# PSDCNv2
 
-    git clone https://github.com/etri/psdcn.git
-    cd psdcn
+PSDCNv2
+=======
+This is PSDCNv2 Software package.
+
 
 Prerequisites
 =============
 
-    # Tested under Ubuntu 16.04.05
+## install python3
 
-    # Python2
-   
-    sudo apt-get install python-dev python-pip
-    pip install gevent
-    
-    # Tested under Ubuntu 18.04.4
-    
-    # Python3 
-    sudo apt-get update -y
-    sudo apt-get install -y python3.6-gevent
+    requires Python >= 3.6
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt update
+    sudo apt install python3.6
 
-Functional Test for Broker
-==========================
+## install ndn-cxx 0.7.0
 
-    # Use impl27/tests directory for functional test under Python2
+    git clone https://github.com/named-data/ndn-cxx
+    cd ndn-cxx
+    git checkout ndn-cxx-0.7.0
 
-    # broker test
-    cd impl27/tests/broker
-    python local.py
+## install NFD 0.7.0
 
-    # storage test
-    cd ../storage
-    python memory.py
-    python protocol.py
- 
-    # topic test
-    cd ../topics
-    python functions.py
-    python perf1.py  (perf1.py ~ perf9.py)
-    python performance.py
+    git clone --recursive https://github.com/named-data/NFD
+    cd NFD
+    git checkout ndn-cxx-0.7.0
 
-    # Use impl36/tests directory for functional test under Python3
+## install python-ndn
 
-    # broker test
-    cd impl36/tests/broker
-    python3 local.py
+    git clone https://github.com/zjkmxy/python-ndn.git
 
-    # storage test
-    cd ../storage
-    python3 memory.py
-    python3 protocol.py
- 
-    # topic test
-    cd ../topics
-    python3 functions.py
-    python3 perf1.py  (perf1.py ~ perf9.py)
-    python3 performance.py
+## install redis-nds or redis
+
+    git clone https://github.com/mpalmer/redis.git
+
+## install python modules
+
+    pip install pytest
+    pip install pyyaml
+    pip install redis
+    pip install siphash
+    pip install aiofiles
+    pip install ratelimit
+
+
+Running
+=======
+
+    nfd-start   
+    cd scripts
+    ./start-broker [broker name]
+
+
+Testing
+=======
+
+### Using Interactive Tool
+
+    nfd-start   
+    cd scripts    
+    ./interact    
+
+    > h [enter]
+
 

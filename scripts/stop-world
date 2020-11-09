@@ -1,0 +1,8 @@
+# Stop all running servers
+
+stop-brokers
+if test $# -eq 1
+then
+    stop-redis
+fi
+

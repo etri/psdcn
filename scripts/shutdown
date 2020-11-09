@@ -1,0 +1,16 @@
+# Shut down the designated broker
+# Save names and data to permanent storage for later restoration
+
+if test $# -eq 0
+then
+    echo "Usage: $0 <broker-name>"
+    exit 1
+fi
+
+ROOT=..
+(cd ${ROOT}
+PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+for broker in $*
+do
+    python3 psdcnv2/clients $broker shutdown
+done)

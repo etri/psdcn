@@ -1,0 +1,4 @@
+ROOT=..
+(cd ${ROOT}
+PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+python3 demo/pub2-demo.py $*)

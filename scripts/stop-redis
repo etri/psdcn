@@ -1,0 +1,7 @@
+# Stop redis processes
+
+redis_processes=$(ps ax | grep "redis-server" | cut -b1-7)
+for process in $redis_processes
+do
+    kill -9 $process > /dev/null 2>&1 && echo killed redis process $process
+done

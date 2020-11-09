@@ -1,0 +1,14 @@
+# Set broker's network
+
+if test $# -eq 0
+then
+    echo "Usage: $0 <broker-name> <network>"
+    exit 1
+fi
+
+ROOT=..
+(cd ${ROOT}
+PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+broker=$1
+shift
+python3 psdcnv2/clients $broker network $*)
