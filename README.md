@@ -65,3 +65,10 @@ Testing
     > h [enter]
 
 
+DEMO
+=======
+    nfd-start   
+    cd scripts    
+    ./batch run-pubsub-demo    
+
+
