@@ -65,7 +65,8 @@ class Pubsub(object):
         content = json.loads(bytes(content).decode())
         status = content['status']
         if 'reason' in content:
-            self.logger.debug(f"** PA {dataname} failed. {content['reason']}")
+            #self.logger.debug(f"** PA {dataname} failed. {content['reason']}")
+            pass
         return content['status'] == 'OK'
 
     async def pubunadv(self, dataname, allow_undefined=True):

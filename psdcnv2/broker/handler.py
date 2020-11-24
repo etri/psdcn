@@ -187,12 +187,13 @@ async def handle_PA(broker, int_name, int_param, app_param, raw_packet, psk_pars
             app_param=json.dumps(reg_app).encode())
         broker.logger.debug(f"IR registered pubadvinfo for {dataname}")
     except Exception as e:
-        response['status'] = "ERR"
-        response['reason'] = "IRfailure"
-        response = json.dumps(response).encode()
-        broker.app.put_data(int_name, content=response, freshness_period=1)
-        broker.logger.info(f"PA couldn't register {dataname} to IR")
-        return
+        #response['status'] = "ERR"
+        #response['reason'] = "IRfailure"
+        #response = json.dumps(response).encode()
+        #broker.app.put_data(int_name, content=response, freshness_period=1)
+        #broker.logger.info(f"PA couldn't register {dataname} to IR")
+        #return
+        pass
 
     # All done
     broker.logger.info(f"PA {broker.id} {action} {dataname}@{rn_name}")
