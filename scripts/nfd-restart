@@ -1,0 +1,2 @@
+# Stop and restart NFD
+(nfd-stop; sleep 1; nfd-start) 2> /dev/null

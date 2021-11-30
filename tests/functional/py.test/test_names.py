@@ -7,7 +7,7 @@ sys.path.append("../../..")
 
 from random import randint
 from datetime import datetime
-from psdcnv2.names import TrieNames, ProcNames, RegexpNames
+from psdcnv3.names import TrieNames, ProcNames, RegexpNames
 
 def test_instances():
     """

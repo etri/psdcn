@@ -1,0 +1,16 @@
+$ Assume brokers /etri/rn-1~3 alreay started somehow
+
+pause Set up broker network information
+network /etri/rn-1 /etri/rn-2 /etri/rn-3
+
+pause At publisher node, advertise names
+$   /pa/see/what/will/happen as BROKER storage
+$   /pa/pub/will/publish as PUBLISHER storage, and
+$   /pa/DIFS/will/publish as DIFS storage
+
+system cd demo/scripts; pub-publisher 1 /pub1_prefix > /dev/null
+
+status
+
+quit
+

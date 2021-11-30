@@ -1,0 +1,14 @@
+# Spawn a broker with the given name
+# Useful when brokers need to be started remotely.
+
+if test $# -eq 0
+then
+    echo "Usage: $0 <broker-name>"
+    exit 1
+fi
+
+ROOT=..
+(cd ${ROOT}
+PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+nohup python3 psdcnv3 $1 > /dev/null 2>&1 < /dev/null &)
+

@@ -1,9 +1,21 @@
-# Stop all running servers
+# Clean up backups and temporaries
+# Usage: clean-world [cxx-bin]
 
-stop-brokers
-if test $# -eq 1
+ROOT=..
+(cd ${ROOT}; ROOT=$(pwd)
+rm -rf *.log* dump* *world *.prof
+find . -name '__pycache__' -type d -exec rm -rf {} \; 2> /dev/null
+
+if test $# -gt 0
 then
-    stop-redis
+    cd ${ROOT}/ps-ccl/cxx; make cleanall > /dev/null
 fi
-cleanup
 
+cd ${ROOT}/tests/functional
+for dir in names py.test
+do
+    cd ${dir}
+    test -d .pytest_cache && rm -rf .pytest_cache
+    cd ..
+done
+cd ${ROOT})

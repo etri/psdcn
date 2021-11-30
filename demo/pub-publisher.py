@@ -1,43 +1,44 @@
-# Publisher-storage and Local-topicscope variation of auto-demo
+# Publisher-storage variation of auto-demo
+# Usage: pub-publisher [<seq_no> [<pub_prefix> [>do_pub>]]]
 
-from psdcnv2.clients import Pubsub
-from psdcnv2.psk import StorageType, TopicScope
+from psdcnv3.clients import Pubsub
+from psdcnv3.psk import StorageType
 from ndn.app import NDNApp
-import datetime
+import datetime, sys
 
-
-async def pub_pub(client, dataname, prefix=None):
-    if prefix is None:
-        if await client.pubadv(dataname, redefine=True):
+async def pub_pub(ps, dataname, storagetype=StorageType.BROKER, storageprefix=None):
+    if storageprefix is None:
+        if await ps.pubadv(dataname, redefine=True):
             print(f"{dataname} advertised")
         else:
-            print(f"{dataname} not advertised")
-    elif await client.pubadv(dataname, StorageType.PUBLISHER, pubprefix=prefix, redefine=True):
+            print(f"{dataname} not advertised. ({ps.reason})")
+    elif await ps.pubadv(dataname,
+            storagetype=storagetype, storageprefix=storageprefix, redefine=True):
         print(f"{dataname} advertised")
     else:
-        print(f"{dataname} not advertised")
+        print(f"{dataname} not advertised. ({ps.reason})")
 
-async def publish(client, dataname, data):
-    if await client.pubdata(dataname, data):
+async def publish(ps, dataname, data, seq):
+    if await ps.pubdata(dataname, data, seq):
         print(f"Publication to {dataname} succeeded")
     else:
-        print(f"Publication to {dataname} failed")
+        print(f"Publication to {dataname} failed. ({ps.reason})")
 
-async def ps_demo(app):
+async def ps_demo(app, seq, pub_prefix, do_pub):
     # Make a Pubsub client
-    # client = Pubsub(app, scope=TopicScope.LOCAL)
-    client = Pubsub(app)
+    ps = Pubsub(app, pub_prefix=pub_prefix)
     # Advertise some names for which publisher will provide data
-    await pub_pub(client, '/pa/pub/will/publish', prefix='/pub-1')
-    await pub_pub(client, '/pa/see/what/will/happen')
-    pub_data = '{0:%Y/%m/%d %H:%M:%S}'.format(datetime.datetime.now())
-    await publish(client, '/pa/see/what/will/happen', pub_data)
-    await publish(client, '/pa/pub/will/publish', pub_data)
-    print(await client.subtopic('/pa/pub/+/publish'))
-    print(await client.subtopic('/pa/#'))
+    await pub_pub(ps, '/pa/see/what/will/happen')
+    await pub_pub(ps, '/pa/pub/will/publish', StorageType.PUBLISHER, storageprefix='/pubstorage-1')
+    await pub_pub(ps, '/pa/DIFS/will/publish', StorageType.DIFS, storageprefix='/difs:0:1')
+    if do_pub:
+    	pub_data = '{0:%Y/%m/%d %H:%M:%S}'.format(datetime.datetime.now())
+    	await publish(ps, '/pa/see/what/will/happen', pub_data, seq)
+    	await publish(ps, '/pa/pub/will/publish', pub_data, seq)
     app.shutdown()
 
 if __name__ == "__main__":
     app = NDNApp()
-    app.run_forever(after_start=ps_demo(app))
-
+    seq = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+    pub_prefix = sys.argv[2] if len(sys.argv) > 2 else None
+    app.run_forever(after_start=ps_demo(app, seq, pub_prefix, len(sys.argv) > 3))

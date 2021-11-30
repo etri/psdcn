@@ -7,8 +7,8 @@ import sys
 sys.path.append("../../..")
 
 from ndn.app import NDNApp
-from psdcnv2.psk.pskinfo import *
-from psdcnv2.psk.pskcmd import PSKCmd
+from psdcnv3.psk.pskinfo import *
+from psdcnv3.psk.pskcmd import PSKCmd
 
 class TestPskCmd:
     @staticmethod

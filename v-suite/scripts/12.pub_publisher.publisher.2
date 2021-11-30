@@ -1,0 +1,20 @@
+$ Assume brokers /etri/rn-1~3 alreay started somehow
+
+pub_prefix /pub1_prefix
+
+pause Set up broker network information
+network /etri/rn-1 /etri/rn-2 /etri/rn-3
+
+pause Check how publication is done for each name
+
+pause Publication to BROKER storage works (silent)
+pubdata /pa/see/what/will/happen 1 It works
+
+pause Publication to PUBLISHER is declined
+pubdata /pa/pub/will/publish 1 Should be declined
+
+pause Publication to DIFS is also declined
+pubdata /pa/DIFS/will/publish 1 Should also be declined
+
+quit
+

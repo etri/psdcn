@@ -1,13 +1,15 @@
-from psdcnv2.clients import Pubsub
+# Repeat publishing data items for the given names until interrupted
+# Usage: pub-demo [<seq_no> [<pub_prefix>]]
+
+from psdcnv3.clients import Pubsub
 from ndn.app import NDNApp
 from ndn.types import InterestNack, InterestTimeout
-import asyncio, random, datetime, sys
+import asyncio, datetime, sys
 
-async def pub_tests(app, names, seq):
-    client = Pubsub(app)
+async def pub_tests(ps, names, seq, pub_prefix):
     for name in names:
         try:
-            await client.pubadv(name, redefine=False)
+            await ps.pubadv(name, redefine=False)
         except (InterestNack, InterestTimeout):
             print('Broker unreachable or interest timeout')
             sys.exit()
@@ -15,20 +17,26 @@ async def pub_tests(app, names, seq):
         try:
             for name in names:
                 data = '{0:%Y/%m/%d %H:%M:%S}'.format(datetime.datetime.now())
-                await client.pubdata(name, data, seq)
-                print(f'Published {data} to {name}[{seq}]')
+                sent = await ps.pubdata(name, data, seq)
+                if sent:
+                    print(f'Published {data} to {name}[{seq}]')
+                else:
+                    print(f'{name}: {ps.reason}')
             seq += 1
         except (InterestNack, InterestTimeout):
             print('Broker unreachable or interest timeout')
-            await asyncio.sleep(1)
+            # await asyncio.sleep(1)
         except Exception as e:
             print(f'{type(e).__name__} {str(e)}')
+            ps.app.shutdown()
+            break
         finally:
             pass
-        await asyncio.sleep(0.5)
 
 if __name__ == "__main__":
     app = NDNApp()
-    start = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-    app.run_forever(after_start=pub_tests(app,
-        ["/hello", "/adios/psdcnv1", "/byebye"], start))
+    seq = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+    pub_prefix = sys.argv[2] if len(sys.argv) > 2 else None
+    ps = Pubsub(app, pub_prefix=pub_prefix)
+    app.run_forever(after_start=pub_tests(ps,
+        ["/hello", "/adios/psdcnv2", "/nowhere/fast"], seq, pub_prefix))

@@ -1,0 +1,12 @@
+# Discover brokers in the broker network
+if test $# -eq 0
+then
+    echo "Usage: $0 <broker-name>"
+    exit 1
+fi
+
+ROOT=..
+(cd ${ROOT}
+PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+python3 psdcnv3/clients $1 network/discover)
+

@@ -1,0 +1,14 @@
+# Clean restart all running servers
+# including brokers, redis server, and marketplace server.
+
+PATH=.:$PATH
+
+stop-brokers
+if test $# -eq 1
+then
+    stop-redis
+    stop-marketplace
+fi
+
+# Also, remove backups and temporaries
+clean-world

@@ -1,0 +1,2 @@
+script=../../v-suite/scripts/$0
+(cd ../demo/scripts; ./batch $script)

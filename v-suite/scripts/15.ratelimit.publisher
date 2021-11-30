@@ -1,0 +1,13 @@
+$ Assume brokers /etri/rn-1~3 alreay started somehow
+
+pause Set up broker network information
+network /etri/rn-1 /etri/rn-2 /etri/rn-3
+
+pause Populate 1000 datanames
+
+system cd demo/scripts; stress-advertise 1000
+
+status
+
+quit
+

@@ -1,0 +1,13 @@
+# Run a broker with the given name
+
+if test $# -eq 0
+then
+    echo "Usage: $0 <broker-name>"
+    exit 1
+else
+    ROOT=..
+    cd ${ROOT}
+    PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+    python3 -m cProfile -o ${1##*/}.prof psdcnv3/__main__.py $1
+fi
+

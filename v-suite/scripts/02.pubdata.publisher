@@ -1,0 +1,17 @@
+$ Assume brokers /etri/rn-1~3 alreay started somehow
+
+pub_prefix /pub1_prefix
+
+pause Set up broker network information
+network /etri/rn-1 /etri/rn-2 /etri/rn-3
+
+pause Publish some data to advertised names
+pubdata /etri/bldg7/room314/temperature	1 31.0
+pubdata /etri/bldg7/room314/temperature	2 34.5
+pubdata /etri/bldg7/room314/temperature	3 33.2
+
+pubdata /CAU/bldg310/room430/temperature 1 28
+pubdata /CAU/bldg310/room430/temperature 2 29.5
+
+quit
+

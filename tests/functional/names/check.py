@@ -1,7 +1,7 @@
 # Test cases of Patterns/Subscriptions implementations
 
 import sys
-sys.path.append("../../../psdcnv2")
+sys.path.append("../../../psdcnv3")
 from datetime import datetime
 from names import TrieNames, ProcNames, RegexpNames
 

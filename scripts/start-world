@@ -1,14 +1,5 @@
-# Start 3 broker instances
+# (Re)start marketplace server
+stop-marketplace > /dev/null; start-marketplace
 
-if test $# -eq 1
-then
-    start-redis
-fi
-stop-brokers
-
-(PYTHONPATH=$PYTHONPATH:$(pwd)/.. export PYTHONPATH
-
-for number in 1 2 3
-do
-    start-broker /etri/rn-$number; sleep 1
-done)
+# (Re)start all the broker instances
+stop-brokers > /dev/null; start-brokers

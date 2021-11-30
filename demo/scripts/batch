@@ -1,0 +1,12 @@
+if test $# -eq 0
+then
+    script="-b"
+else
+    script=$(pwd)/$1
+fi
+
+
+ROOT=../..
+(cd ${ROOT}
+PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+python3 demo/interact.py $script)

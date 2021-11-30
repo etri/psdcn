@@ -1,0 +1,20 @@
+# Start all the broker instances
+# identified from the psdcnv3.config file.
+
+if test $# -eq 1
+then
+    start-redis
+fi
+stop-brokers
+
+brokers=$(grep ^network: ../psdcnv3.config | cut -b9-)
+brokers=${brokers/[/}
+brokers=${brokers/]/}
+brokers=${brokers//,/ }
+
+(PYTHONPATH=$PYTHONPATH:$(pwd)/.. export PYTHONPATH
+
+for broker in $brokers
+do
+    start-broker $broker; sleep 1
+done)

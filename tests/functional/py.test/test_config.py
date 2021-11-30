@@ -5,7 +5,7 @@ Config-related tests
 import sys
 sys.path.append("../../..")
 
-from psdcnv2.utils import load_config, config_value
+from psdcnv3.utils import load_config, config_value
 import os.path
 
 CONFIG_FILE = "test.config"

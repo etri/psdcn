@@ -1,0 +1,19 @@
+$ Assume brokers /etri/rn-1~3 alreay started somehow
+
+$ Run the following this with a fresh environment, i.e.
+$ At each broker:
+$     stop-brokers
+$     ...Restart NFD...
+$     Modify 'service_rate' of psdcn3.config appripriately, say, 100, 10, 1, 0.5, etc
+$     start broker <prefix>
+
+pause Set up broker network information
+network /etri/rn-1 /etri/rn-2 /etri/rn-3
+
+pause Subscribe to 1000 names
+$ The following reports how many (out of 1000) subscription attempts were successful
+
+system cd demo/scripts; stress-subscribe 1000
+
+quit
+

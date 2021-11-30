@@ -1,5 +1,5 @@
 import sys
-sys.path.append("../../../psdcnv2")
+sys.path.append("../../../psdcnv3")
 from time import time
 from names import TrieNames, ProcNames, RegexpNames
 

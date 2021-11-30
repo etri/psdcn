@@ -1,0 +1,6 @@
+test_cases=$(cd scripts; ls)
+for case in $test_cases
+do
+    echo $case
+    ln -s run-test-case $case
+done

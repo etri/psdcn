@@ -1,0 +1,12 @@
+$ Assume brokers /etri/rn-1~3 alreay started somehow
+
+pause Set up broker network information
+network /etri/rn-1 /etri/rn-2 /etri/rn-3
+
+$ Check if /etri/rn-1 (Data-RN) now has 3 data items for /etri/...,
+$                                   and 2 for /CAU/...
+pause
+status
+
+quit
+

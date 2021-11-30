@@ -1,4 +1,4 @@
-# Stop redis processes
+# Stop all running redis server processes
 
 redis_processes=$(ps ax | grep "redis-server" | cut -b1-7)
 for process in $redis_processes

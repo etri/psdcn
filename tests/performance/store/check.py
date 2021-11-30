@@ -1,5 +1,5 @@
 import sys
-sys.path.append("../../../psdcnv2")
+sys.path.append("../../../psdcnv3")
 sys.path.append("../../..")
 from time import time
 from store import Store, TableStorage, RedisStorage, FileStorage, CacheWrapper
@@ -8,14 +8,14 @@ import redis
 def test_read(provider, storage, count=100000):
     store = Store(storage)
     start = time()
-    HSKIM = 1800
-    NATASHA = 1870
+    MHKIM = 1961
+    NATASHA = 1970
     TUPLE = ('psdcn', 2, 'big big success')
-    store.set('hskim', HSKIM)
+    store.set('mhkim', MHKIM)
     store.set('natasha', NATASHA)
     store.set('tuple', TUPLE)
     for run in range(count):
-        _hskim = int(store.get('hskim'))
+        _mhkim = int(store.get('mhkim'))
         _natasha = int(store.get('natasha'))
         _tuple = eval(store.get('tuple'))
     end = time()
@@ -26,7 +26,7 @@ def test_store(provider, storage, count=100000):
     store = Store(storage)
     start = time()
     for run in range(count):
-        KEY = 'hskim_' + str(run)
+        KEY = 'mhkim_' + str(run)
         store.set(KEY, run)
         _value = store.get(KEY)
     end = time()

@@ -1,0 +1,7 @@
+# Stop all running marketplace server processes
+
+marketplace_processes=$(ps ax | grep "python3 marketplace_server.py" | cut -b1-7)
+for process in $marketplace_processes
+do
+    kill -9 $process > /dev/null 2>&1 && echo killed marketplace_server process $process
+done

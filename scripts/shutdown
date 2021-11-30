@@ -12,5 +12,5 @@ ROOT=..
 PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
 for broker in $*
 do
-    python3 psdcnv2/clients $broker shutdown
+    python3 psdcnv3/clients $broker shutdown
 done)

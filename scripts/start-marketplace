@@ -1,0 +1,7 @@
+# (Re)start marketplace server
+
+stop-marketplace
+
+cd ../etc
+python3 marketplace_server.py &
+

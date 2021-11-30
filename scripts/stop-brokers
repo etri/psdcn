@@ -1,6 +1,6 @@
-# Stop brokers
+# Stop all running broker processes
 
-broker_processes=$(ps ax | grep "python3 psdcnv2" | cut -b1-7)
+broker_processes=$(ps ax | grep "python3 psdcnv3" | cut -b1-7)
 for process in $broker_processes
 do
     kill -9 $process > /dev/null 2>&1 && echo killed broker process $process

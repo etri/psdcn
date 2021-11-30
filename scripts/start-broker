@@ -9,5 +9,5 @@ fi
 ROOT=..
 (cd ${ROOT}
 PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
-python3 psdcnv2 $1 &)
+python3 psdcnv3 $1 &)
 

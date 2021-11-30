@@ -1,0 +1,20 @@
+# Save names and data of the brokers to permanent storage
+
+if test $# -gt 0
+then
+    brokers=$*
+else
+    brokers=$(grep ^network: ../psdcnv3.config | cut -b9-)
+    brokers=${brokers/[/}
+    brokers=${brokers/]/}
+    brokers=${brokers//,/ }
+fi
+
+ROOT=..
+(cd ${ROOT}
+PYTHONPATH=$PYTHONPATH:$(pwd) export PYTHONPATH
+for broker in $brokers
+do
+    python3 psdcnv3/clients $broker save
+done)
+

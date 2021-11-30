@@ -1,8 +1,9 @@
 # Stop all running servers
+# including brokers, redis server, and marketplace server
 
 stop-brokers
 if test $# -eq 1
 then
     stop-redis
 fi
-
+stop-marketplace
