@@ -133,14 +133,14 @@ async def handle_PD(broker, int_name, int_param, app_param, psk_parse):
         # Publisher moved to a new broker!
         # (Re)Advertise dataname to reflect the new Data-RN name
         topic_rn = arbit(dataname, broker.network)
-        success = True
-        pubadvinfo_m = PubAdvInfo(dataname)
-        pubadvinfo_m['pub_moved'] = True
+        advertised = True
+        pubmovinfo = PubAdvInfo(dataname)
+        pubmovinfo['pub_moved'] = True
         if topic_rn != broker.id:
             # Advertise the name to Topic-RN
             command, int_param, apq_param = \
                 broker.keeper.make_pubadv_cmd(topic_rn, dataname,
-                    pubadvinfo=pubadvinfo_m, rninfo=RNInfo(brokername=broker.id))
+                    pubadvinfo=pubmovinfo, rninfo=RNInfo(brokername=broker.id))
             _, _, content = await broker.app.express_interest(
                 Name.from_str(command), interest_param=int_param, app_param=apq_param)
             content = json.loads(bytes(content).decode())
@@ -157,21 +157,21 @@ async def handle_PD(broker, int_name, int_param, app_param, psk_parse):
                 content = json.loads(bytes(content).decode())
                 store_md = pickle.loads(base64.b64decode(content['store_md'].encode()))
                 if 'pso_info' in content:
-                    pubadvinfo_m = content['pso_info']
+                    pubmovinfo = content['pso_info']
                 else:
-                    pubadvinfo_m = PubAdvInfo(dataname=dataname)
+                    pubmovinfo = PubAdvInfo(dataname=dataname)
                 store_md.fst = store_md.lst + 1
                 broker.store.metadata[dataname] = store_md
                 broker.logger.debug(f"PD re-advertised {dataname} from {old_rn} to {new_rn}")
             else:
                 broker.logger.debug(f"PD re-advertise failed. Old RN not found")
-                success = False
+                advertised = False
         else:
             # Append current node to the list of rn_names
             broker.names.advertise(broker.id, dataname, pub_moved=True)
             broker.logger.debug(f"PD adversised {dataname}@{broker.id}")
-        if success:
-            broker.psodb.pubadv(dataname, pubadvinfo_m)
+        if advertised:
+            broker.psodb.pubadv(dataname, pubmovinfo)
             await broker.app.register(dataname, broker.on_data_request)
             broker.logger.debug(f"PD registered route {dataname}@{broker.id}")
         else:

@@ -1,0 +1,7 @@
+python-ndn==0.3a1.post1
+pyyaml
+redis
+siphash
+aiofiles
+ratelimit
+psutil

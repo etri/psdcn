@@ -67,6 +67,8 @@ class Broker(object):
     :ivar psodb: a snapshot of PubSub operations.
     """
 
+    handlers = dict()
+
     def __init__(self, id, app, names, store, psodb):
         self.id, self.app, self.names, self.store, self.psodb = id, app, names, store, psodb
         self.keeper = PSKCmd(app, node_name=id)
@@ -87,6 +89,15 @@ class Broker(object):
             # loop.run_until_complete(self.save_world(periodic=False))
             # loop.run_until_complete(self.store.flush(periodic=False))
             pass
+
+    def lookup_handler(command):
+        command = 'psdcnv3.broker.handler.handle_' + command    # Regularise command name
+        if command in Broker.handlers:
+            handler = Broker.handlers[command]
+        else:
+            handler = eval(command)
+            Broker.handlers[command] = handler
+        return handler
 
     def on_pubsub_request(self, int_name, int_param, app_param, raw_packet):
         """
@@ -109,9 +120,8 @@ class Broker(object):
             return
         prefix = psk_parse['prefix']
         # self.logger.debug(f"Inside Admin handler of {prefix} for {command}")
-        asyncio.get_event_loop().create_task(
-            eval('psdcnv3.broker.handler.handle_' + psk_parse['command'])(
-                self, int_name, int_param, app_param, psk_parse))
+        asyncio.get_event_loop().create_task(Broker.lookup_handler(psk_parse['command'])(
+            self, int_name, int_param, app_param, psk_parse))
 
     def on_data_request(self, int_name, int_param, app_param):
         """
@@ -273,7 +283,7 @@ class Broker(object):
                 if topicscope == TopicScope.LOCAL:
                     target = self.id
                     self.logger.debug(f"{command} {dataname} processed by Data-RN {self.id}")
-                await eval("psdcnv3.broker.handler.handle_" + command)(
+                await Broker.lookup_handler(command)(
                     self, int_name, int_param, enc_param, psk_parse)
             else:
                 # Or else forward the request to target RN

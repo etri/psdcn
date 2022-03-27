@@ -43,6 +43,7 @@ class PSKCmd(object):
         "CMD_Save": "Save",
         "CMD_Metadata": "Metadata",
     }
+    cmd_list = list(commands.values())
 
     """
     Create a PSKCmd object. PSKCmd object provides interface for making Pub/Sub command name.
@@ -84,11 +85,10 @@ class PSKCmd(object):
         parts = oname.split("/")[1:]
         # check prefix
         command = "ERROR"
-        cmd_list = list(PSKCmd.commands.values())
         if Name.is_prefix(self.svc_name, oname):
             prefix = self.svc_name
             nname_cnt = len(self.svc_name.split('/')[1:])
-            if parts[nname_cnt] in cmd_list:
+            if parts[nname_cnt] in PSKCmd.cmd_list:
                 command = parts[nname_cnt]
                 d_begin = nname_cnt + 1
             else:
@@ -97,7 +97,7 @@ class PSKCmd(object):
         elif Name.is_prefix(self.node_name, oname): 
             prefix = self.node_name
             bname_cnt = len(self.node_name.split('/')[1:])
-            if parts[bname_cnt] in list(PSKCmd.commands.values()):
+            if parts[bname_cnt] in PSKCmd.cmd_list:
                 command = parts[bname_cnt]
                 d_begin = bname_cnt + 1
             else:

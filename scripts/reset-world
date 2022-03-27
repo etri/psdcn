@@ -3,12 +3,7 @@
 
 PATH=.:$PATH
 
-stop-brokers
-if test $# -eq 1
-then
-    stop-redis
-    stop-marketplace
-fi
+stop-world $1
 
 # Also, remove backups and temporaries
 clean-world
